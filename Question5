@@ -1,0 +1,99 @@
+package com.dsrc.controller;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.dsrc.bean.BeanName;
+@Controller
+public class MyController {
+ public MyController(){
+	 
+ }
+ BeanName b;String g;
+
+ @RequestMapping(value = "/index.htm", method = RequestMethod.GET)
+	public ModelAndView student(Model model) {
+
+				return new ModelAndView("index","command",new BeanName() );
+	}
+
+
+@RequestMapping(value="/login.htm", method = RequestMethod.POST)  
+public String login(HttpServletRequest request, HttpServletResponse response,@ModelAttribute("Login")BeanName log,ModelMap model) {
+
+		System.out.println(log.getName());
+
+		 return "login";
+}
+
+	
+ 
+	 
+}
+************index.jsp
+
+
+<%@taglib uri = "http://www.springframework.org/tags/form" prefix = "form"%>
+<html>
+  <head>
+    <title>Spring MVC login example.</title>
+  </head>
+ 
+  <body>
+  <form:form method = "POST" action = "login.htm" modelAttribute="command">
+  		<form:label path = "name">Name</form:label>
+  		<form:input path = "name" />
+  		 <input type = "submit" value = "Submit"/>
+  </form:form> 
+  
+  </body>  
+</html>
+ 
+ 
+ ************login.jsp
+ 
+ 
+ <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<form action= "login.htm" >
+  	${Login.name}
+ 	</form>
+</body>
+</html>
+
+******Beanclass
+
+package com.dsrc.bean;
+
+public class BeanName {
+	private String name;
+	public BeanName(){
+		
+	}
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+}
+
+ 
+ 
